@@ -1,0 +1,13 @@
+# Never commit binaries or device-specific data
+*.img
+*.apk
+*.zip
+*.gguf
+*.dmp
+*.log
+backup/
+bk/
+gapps/
+**/privapp.xml
+*keys*.txt
+*secret*
