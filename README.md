@@ -1,8 +1,24 @@
 # INMO Air3 Root (Magisk, no data wipe)
 
+**English** · [简体中文](README.zh-CN.md)
+
 Root the **INMO Air3 (model IMA301)** AR glasses with Magisk using a temporary
 boot, so your original `boot` image is backed up **before** anything is flashed.
 No `userdata` wipe, no custom recovery, and a one-command path back to stock.
+
+```mermaid
+flowchart TD
+    A["Step 0 · Developer mode + USB debugging"] --> B["Step 1 · Check bootloader"]
+    B -->|"unlocked: yes"| C["Step 2 · Match kernel, get Google GKI boot.img"]
+    B -->|"locked"| X["Stop — unlocking wipes data, no public method"]
+    C --> D["Step 3 · Patch GKI with Magisk"]
+    D --> E["Step 4 · fastboot boot patched GKI (temporary, nothing flashed)"]
+    E --> F["dd stock partitions to PC + verify sha256"]
+    F --> G["Step 5 · Patch the STOCK boot (current slot)"]
+    G --> H["Step 6 · fastboot flash boot_&lt;slot&gt; (patched stock)"]
+    H --> I["Reboot · open Magisk · grant root"]
+    F -. keep this backup .-> R["Restore anytime: flash stock boot_&lt;slot&gt;"]
+```
 
 > **Status of these glasses.** On the unit this was written for, the bootloader
 > was already **unlocked** (`fastboot getvar unlocked` → `yes`) and
